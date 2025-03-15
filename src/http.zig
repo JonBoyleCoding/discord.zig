@@ -214,12 +214,12 @@ pub const FetchReq = struct {
         errdefer string.deinit();
 
         try json.stringify(object, .{}, string.writer());
+        std.debug.print("POST Message: {any}\n", .{string.items});
         const result = try self.makeRequest(.POST, path, try string.toOwnedSlice());
 
         if (result.status != .ok) {
             const body = try self.body.toOwnedSlice();
             std.debug.print("POST Struct: {any}\n", .{object});
-            std.debug.print("POST Message: {any}\n", .{string.items});
             std.debug.print("POST Error: {s}\n", .{body});
             return try zjson.parseLeft(DiscordError, T, self.allocator, body);
         }
