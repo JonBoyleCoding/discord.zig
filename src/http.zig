@@ -228,7 +228,9 @@ pub const FetchReq = struct {
             return try zjson.parseLeft(DiscordError, T, self.allocator, body);
         }
 
-        return try zjson.parseRight(DiscordError, T, self.allocator, try self.body.toOwnedSlice());
+        std.debug.print("Response: {s}", .{self.body.items});
+
+        return zjson.parseRight(DiscordError, T, self.allocator, try self.body.toOwnedSlice());
     }
 
     pub fn post2(self: *FetchReq, comptime T: type, path: []const u8) !Result(T) {
