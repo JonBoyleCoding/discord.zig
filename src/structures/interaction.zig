@@ -18,6 +18,7 @@ const Snowflake = @import("snowflake.zig").Snowflake;
 const InteractionTypes = @import("shared.zig").InteractionTypes;
 const Guild = @import("guild.zig").Guild;
 const Attachment = @import("attachment.zig").Attachment;
+const AllowedMentions = @import("message.zig").AllowedMentions;
 const Message = @import("message.zig").Message;
 const Channel = @import("channel.zig").Channel;
 const User = @import("user.zig").User;
@@ -33,6 +34,10 @@ const InteractionResponseTypes = @import("shared.zig").InteractionResponseTypes;
 const InteractionContextType = @import("integration.zig").InteractionContextType;
 const Entitlement = @import("monetization.zig").Entitlement;
 const Record = @import("../json.zig").Record;
+const Embed = @import("embed.zig").Embed;
+const MessageFlags = @import("shared.zig").MessageFlags;
+const Poll = @import("poll.zig").Poll;
+const ApplicationCommandOptionChoice = @import("command.zig").ApplicationCommandOptionChoice;
 
 pub const Interaction = struct {
     /// Id of the interaction
@@ -213,4 +218,44 @@ pub const InteractionDataOption = struct {
     options: ?[]InteractionDataOption,
     /// `true` if this option is the currently focused option for autocomplete
     focused: ?bool,
+};
+
+pub const InteractionResponse = struct {
+    /// Type of response
+    type: InteractionResponseTypes,
+    /// An optional response message
+    data: ?InteractionResponseData,
+};
+
+pub const InteractionResponseData = union(enum) {
+    Message: struct {
+        /// Whether the response is TTS
+        tts: ?bool = null,
+        /// Message content
+        content: ?[]const u8 = null,
+        /// Supports up to 10 embeds
+        embeds: ?[]Embed = null,
+        /// Allowed mentions object
+        allowed_mentions: ?AllowedMentions = null,
+        /// Message flags combined as a bitfield (only SUPPRESS_EMBEDS, EPHEMERAL, and SUPPRESS_NOTIFICATIONS can be set)
+        flags: ?MessageFlags = null,
+        /// Message components
+        components: ?[]MessageComponent = null,
+        /// Attachment objects with filename and description
+        attachments: ?[]Partial(Attachment) = null,
+        /// Details about the poll
+        poll: ?Poll = null,
+    },
+    AutoComplete: struct {
+        /// autocomplete choices (max of 25 choices)
+        choices: []ApplicationCommandOptionChoice,
+    },
+    Modal: struct {
+        /// Developer-defined identifier for the modal, max 100 characters
+        custom_id: []const u8,
+        /// Title of the popup modal, max 45 characters
+        title: []const u8,
+        /// Between 1 and 5 (inclusive) components that make up the modal
+        components: []MessageComponent,
+    },
 };
