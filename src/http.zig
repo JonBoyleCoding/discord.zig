@@ -234,6 +234,32 @@ pub const FetchReq = struct {
         return zjson.parseRight(DiscordError, T, self.allocator, try self.body.toOwnedSlice());
     }
 
+    pub fn posta(self: *FetchReq, comptime T: type, path: []const u8, object: anytype) !Result(T) {
+        var string = std.ArrayList(u8).init(self.allocator);
+        errdefer string.deinit();
+
+        std.debug.print("POST Struct: {any}\n", .{object});
+
+        json.stringify(object, .{ .emit_null_optional_fields = true }, string.writer()) catch |err| {
+            std.debug.print("STRINGIFY Error: {any}\n", .{err});
+            return err;
+        };
+
+        std.debug.print("POST String Length: {s}", .{string.items});
+
+        const result = try self.makeRequest(.POST, path, try string.toOwnedSlice());
+
+        if (result.status != .ok) {
+            const body = try self.body.toOwnedSlice();
+            std.debug.print("POST Struct: {any}\n", .{object});
+            std.debug.print("POST Error: {s}\n", .{body});
+            return try zjson.parseLeft(DiscordError, T, self.allocator, body);
+        }
+
+        std.debug.print("Response: {s}", .{self.body.items});
+
+        return zjson.parseRight(DiscordError, T, self.allocator, try self.body.toOwnedSlice());
+    }
     pub fn post2(self: *FetchReq, comptime T: type, path: []const u8) !Result(T) {
         const result = try self.makeRequest(.POST, path, null);
 
