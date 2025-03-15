@@ -214,6 +214,7 @@ pub const FetchReq = struct {
         errdefer string.deinit();
 
         try json.stringify(object, .{}, string.writer());
+        std.debug.print("POST Struct: {s}\n", .{string.items});
         const result = try self.makeRequest(.POST, path, try string.toOwnedSlice());
 
         if (result.status != .ok) {
