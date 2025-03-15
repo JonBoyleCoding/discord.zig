@@ -213,8 +213,12 @@ pub const FetchReq = struct {
         var string = std.ArrayList(u8).init(fba.allocator());
         errdefer string.deinit();
 
-        try json.stringify(object, .{}, string.writer());
-        std.debug.print("POST Struct: {s}\n", .{string.items});
+        json.stringify(object, .{}, string.writer()) catch |err| {
+            std.debug.print("POST Struct: {any}\n", .{object});
+            std.debug.print("STRINGIFY Error: {any}\n", .{err});
+            return err;
+        };
+
         const result = try self.makeRequest(.POST, path, try string.toOwnedSlice());
 
         if (result.status != .ok) {
