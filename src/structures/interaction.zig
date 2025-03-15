@@ -30,7 +30,7 @@ const ChannelTypes = @import("shared.zig").ChannelTypes;
 const MessageComponent = @import("component.zig").MessageComponent;
 const ApplicationCommandTypes = @import("shared.zig").ApplicationCommandTypes;
 const InteractionResponseTypes = @import("shared.zig").InteractionResponseTypes;
-const InteractionContextType = @import("command.zig").InteractionContextType;
+const InteractionContextType = @import("integration.zig").InteractionContextType;
 const Entitlement = @import("monetization.zig").Entitlement;
 const Record = @import("../json.zig").Record;
 
