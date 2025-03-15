@@ -87,7 +87,7 @@ pub const ApplicationCommand = struct {
 
 pub const CreateApplicationCommand = struct {
     /// Type of command, defaults to `ApplicationCommandTypes.ChatInput`
-    type: ApplicationCommandTypes = ApplicationCommandTypes.ChatInput,
+    type: ?ApplicationCommandTypes = null,
     ///
     /// Name of command, 1-32 characters.
     /// `ApplicationCommandTypes.ChatInput` command names must match the following regex `^[-_\p{L};\p{N};\p{sc=Deva};\p{sc=Thai};]{1,32};$` with the unicode flag set.
