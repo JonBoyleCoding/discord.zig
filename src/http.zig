@@ -247,7 +247,7 @@ pub const FetchReq = struct {
 
         const slice = try string.toOwnedSlice();
 
-        std.debug.print("POST String Length: {s}", .{slice.len});
+        std.debug.print("POST String Length: {d}", .{slice.len});
         std.debug.print("POST String: {s}", .{slice});
 
         const result = try self.makeRequest(.POST, path, slice);
