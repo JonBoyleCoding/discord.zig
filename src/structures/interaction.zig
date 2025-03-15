@@ -61,7 +61,7 @@ pub const Interaction = struct {
     /// A continuation token for responding to the interaction
     token: []const u8,
     /// Read-only property, always `1`
-    version: 1,
+    version: u8,
     /// For the message the button was attached to
     message: ?Message,
     /// the command data payload
