@@ -74,6 +74,7 @@ pub fn start(self: *Self, settings: struct {
 
     // check status idk
     if (res.status != http.Status.ok) {
+        std.debug.print("res not ok: {s}", .{body});
         @panic("we are cooked\n"); // check your token dumbass
     }
 
