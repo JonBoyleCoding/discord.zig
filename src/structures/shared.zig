@@ -868,7 +868,7 @@ pub const TargetTypes = enum(u4) {
     EmbeddedApplication,
 };
 
-pub const ApplicationCommandTypes = enum(u4) {
+pub const ApplicationCommandTypes = enum(i32) {
     /// A text-based command that shows up when a user types `/`
     ChatInput = 1,
     /// A UI-based command that shows up when you right click or tap on a user
