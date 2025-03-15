@@ -34,6 +34,7 @@ pub usingnamespace @import("gateway.zig");
 pub usingnamespace @import("guild.zig");
 pub usingnamespace @import("integration.zig");
 pub usingnamespace @import("integration.zig");
+pub usingnamespace @import("interaction.zig");
 pub usingnamespace @import("invite.zig");
 pub usingnamespace @import("member.zig");
 pub usingnamespace @import("message.zig");
