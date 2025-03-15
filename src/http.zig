@@ -218,6 +218,7 @@ pub const FetchReq = struct {
 
         if (result.status != .ok) {
             const body = try self.body.toOwnedSlice();
+            std.debug.print("POST Struct: {any}", .{object});
             std.debug.print("POST Message: {any}", .{string});
             std.debug.print("POST Error: {s}", .{body});
             return try zjson.parseLeft(DiscordError, T, self.allocator, body);
