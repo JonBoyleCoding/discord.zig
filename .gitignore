@@ -2,3 +2,4 @@ lib/
 zig-out
 .zig-cache
 .env
+.direnv
