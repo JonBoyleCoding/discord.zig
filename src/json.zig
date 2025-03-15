@@ -1076,7 +1076,16 @@ pub fn parseInto(comptime T: type, allocator: mem.Allocator, value: JsonType) Er
                 return try T.json(allocator, value);
 
             switch (value) {
-                .string => return std.meta.stringToEnum(T, value.string).?, // useful for parsing a name into enum T
+                .string => {
+                    const conv_enum = std.meta.stringToEnum(T, value.string);
+
+                    if (conv_enum != null) {
+                        return std.meta.stringToEnum(T, value.string).?; // useful for parsing a name into enum T
+                    } else {
+                        std.debug.print("Cannot convert {s} into {any}", .{ value.string, T });
+                        return error.TypeMismatch;
+                    }
+                },
                 .number => return @enumFromInt(value.number.integer), // forcibly casted
                 else => return error.TypeMismatch,
             }
