@@ -227,35 +227,27 @@ pub const InteractionResponse = struct {
     data: ?InteractionResponseData,
 };
 
-pub const InteractionResponseData = union(enum) {
-    Message: struct {
-        /// Whether the response is TTS
-        tts: ?bool = null,
-        /// Message content
-        content: ?[]const u8 = null,
-        /// Supports up to 10 embeds
-        embeds: ?[]Embed = null,
-        /// Allowed mentions object
-        allowed_mentions: ?AllowedMentions = null,
-        /// Message flags combined as a bitfield (only SUPPRESS_EMBEDS, EPHEMERAL, and SUPPRESS_NOTIFICATIONS can be set)
-        flags: ?MessageFlags = null,
-        /// Message components
-        components: ?[]MessageComponent = null,
-        /// Attachment objects with filename and description
-        attachments: ?[]Partial(Attachment) = null,
-        /// Details about the poll
-        poll: ?Poll = null,
-    },
-    AutoComplete: struct {
-        /// autocomplete choices (max of 25 choices)
-        choices: []ApplicationCommandOptionChoice,
-    },
-    Modal: struct {
-        /// Developer-defined identifier for the modal, max 100 characters
-        custom_id: []const u8,
-        /// Title of the popup modal, max 45 characters
-        title: []const u8,
-        /// Between 1 and 5 (inclusive) components that make up the modal
-        components: []MessageComponent,
-    },
+pub const InteractionResponseData = struct {
+    /// Whether the response is TTS
+    tts: ?bool = null,
+    /// Message content
+    content: ?[]const u8 = null,
+    /// Supports up to 10 embeds
+    embeds: ?[]Embed = null,
+    /// Allowed mentions object
+    allowed_mentions: ?AllowedMentions = null,
+    /// Message flags combined as a bitfield (only SUPPRESS_EMBEDS, EPHEMERAL, and SUPPRESS_NOTIFICATIONS can be set)
+    flags: ?MessageFlags = null,
+    /// Message components
+    components: ?[]MessageComponent = null,
+    /// Attachment objects with filename and description
+    attachments: ?[]Partial(Attachment) = null,
+    /// Details about the poll
+    poll: ?Poll = null,
+    /// autocomplete choices (max of 25 choices)
+    choices: ?[]ApplicationCommandOptionChoice = null,
+    /// Developer-defined identifier for the modal, max 100 characters
+    custom_id: ?[]const u8 = null,
+    /// Title of the popup modal, max 45 characters
+    title: ?[]const u8 = null,
 };
