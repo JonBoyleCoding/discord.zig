@@ -87,7 +87,7 @@ pub const ApplicationCommand = struct {
 
 pub const CreateApplicationCommand = struct {
     /// Type of command, defaults to `ApplicationCommandTypes.ChatInput`
-    type: ?ApplicationCommandTypes,
+    type: ?ApplicationCommandTypes = null,
     ///
     /// Name of command, 1-32 characters.
     /// `ApplicationCommandTypes.ChatInput` command names must match the following regex `^[-_\p{L};\p{N};\p{sc=Deva};\p{sc=Thai};]{1,32};$` with the unicode flag set.
@@ -99,13 +99,13 @@ pub const CreateApplicationCommand = struct {
     /// Localization object for `name` field. Values follow the same restrictions as `name`
     name_localizations: []const u8, //?Localization,
     /// Description for `ApplicationCommandTypes.ChatInput` commands, 1-100 characters.
-    description: ?[]const u8,
+    description: ?[]const u8 = null,
     /// Localization object for `description` field. Values follow the same restrictions as `description`
     description_localizations: []const u8, //?Localization,
     /// Parameters for the command, max of 25
-    options: ?[]ApplicationCommandOption,
+    options: ?[]ApplicationCommandOption = null,
     /// Set of permissions represented as a bit set
-    default_member_permissions: ?[]const u8,
+    default_member_permissions: ?[]const u8 = null,
     ///
     /// Installation contexts where the command is available
     ///
@@ -113,7 +113,7 @@ pub const CreateApplicationCommand = struct {
     /// This value is available only for globally-scoped commands
     /// Defaults to the application configured contexts
     ///
-    integration_types: ?[]ApplicationIntegrationType,
+    integration_types: ?[]ApplicationIntegrationType = null,
     ///
     /// Interaction context(s) where the command can be used
     ///
@@ -121,24 +121,24 @@ pub const CreateApplicationCommand = struct {
     /// This value is available only for globally-scoped commands
     /// By default, all interaction context types included for new commands.
     ///
-    contexts: ?[]InteractionContextType,
+    contexts: ?[]InteractionContextType = null,
     ///
     /// Indicates whether the command is available in DMs with the app, only for globally-scoped commands. By default, commands are visible.
     ///
     /// @deprecated use {@link contexts}; instead
     ///
-    dm_permission: ?bool,
+    dm_permission: ?bool = null,
     /// Indicates whether the command is age-restricted, defaults to false
-    nsfw: ?bool,
+    nsfw: ?bool = null,
     /// Auto incrementing version identifier updated during substantial record changes
-    version: ?[]const u8,
+    version: ?[]const u8 = null,
     ///
     ///Determines whether the interaction is handled by the app's interactions handler or by
     ///
     /// @remarks
     /// This can only be set for application commands of type `PRIMARY_ENTRY_POINT` for applications with the `EMBEDDED` flag (i.e. applications that have an Activity).
     ///
-    handler: ?InteractionEntryPointCommandHandlerType,
+    handler: ?InteractionEntryPointCommandHandlerType = null,
 };
 
 pub const InteractionEntryPointCommandHandlerType = enum(u4) {
