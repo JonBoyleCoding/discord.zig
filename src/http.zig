@@ -213,8 +213,9 @@ pub const FetchReq = struct {
         var string = std.ArrayList(u8).init(fba.allocator());
         errdefer string.deinit();
 
-        json.stringify(object, .{ .emit_null_optional_fields = false }, string.writer()) catch |err| {
-            std.debug.print("POST Struct: {any}\n", .{object});
+        std.debug.print("POST Struct: {any}\n", .{object});
+
+        json.stringify(object, .{ .emit_null_optional_fields = true }, string.writer()) catch |err| {
             std.debug.print("STRINGIFY Error: {any}\n", .{err});
             return err;
         };
