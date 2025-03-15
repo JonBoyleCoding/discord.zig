@@ -296,6 +296,8 @@ pub const FetchReq = struct {
         var buf: [256]u8 = undefined;
         const constructed = try std.fmt.bufPrint(&buf, "{s}{s}{s}", .{ BASE_URL, path, try self.formatQueryParams() });
 
+        std.debug.print("Request URL: {s}\n", .{constructed});
+
         try self.extra_headers.append(http.Header{ .name = "Accept", .value = "application/json" });
         try self.extra_headers.append(http.Header{ .name = "Content-Type", .value = "application/json" });
         try self.extra_headers.append(http.Header{ .name = "Authorization", .value = self.token });
@@ -311,7 +313,11 @@ pub const FetchReq = struct {
             fetch_options.payload = to_post;
         }
 
+        std.debug.print("About to fetch...\n", .{});
+
         const res = try self.client.fetch(fetch_options);
+
+        std.debug.print("Result: {any}\n", .{res});
         return res;
     }
 
