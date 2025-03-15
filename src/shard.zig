@@ -2852,7 +2852,7 @@ pub fn createGlobalCommand(self: *Self, application_id: Snowflake, command: Type
     return req.post(Types.CreateApplicationCommand, path, command);
 }
 
-pub fn interactResponse(self: *Self, interaction_id: Snowflake, interaction_token: []const u8, response: Types.InteractionResponse) RequestFailedError!Result(Types.InteractionCallbackResponse) {
+pub fn interactResponse(self: *Self, interaction_id: Snowflake, interaction_token: []const u8, response: Types.InteractionResponse) RequestFailedError!?Result(Types.InteractionCallbackResponse) {
     var buf: [512]u8 = undefined;
     const path = try std.fmt.bufPrint(&buf, "/interactions/{s}/{s}/callback", .{ interaction_id, interaction_token });
 

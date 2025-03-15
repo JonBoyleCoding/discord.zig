@@ -234,7 +234,7 @@ pub const FetchReq = struct {
         return zjson.parseRight(DiscordError, T, self.allocator, try self.body.toOwnedSlice());
     }
 
-    pub fn posta(self: *FetchReq, comptime T: type, path: []const u8, object: anytype) !Result(T) {
+    pub fn posta(self: *FetchReq, comptime T: type, path: []const u8, object: anytype) !?Result(T) {
         var string = std.ArrayList(u8).init(self.allocator);
         errdefer string.deinit();
 
@@ -253,6 +253,11 @@ pub const FetchReq = struct {
         const result = try self.makeRequest(.POST, path, slice);
 
         std.debug.print("Response: {s}", .{self.body.items});
+
+        if (result.status == .no_content) {
+            return null;
+        }
+
         if (result.status != .ok) {
             const body = try self.body.toOwnedSlice();
             std.debug.print("POST Struct: {any}\n", .{object});
