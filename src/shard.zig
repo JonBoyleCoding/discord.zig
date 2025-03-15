@@ -2853,9 +2853,8 @@ pub fn createGlobalCommand(self: *Self, application_id: Snowflake, command: Type
 }
 
 pub fn interactResponse(self: *Self, interaction_id: Snowflake, interaction_token: []const u8, response: Types.InteractionResponse) RequestFailedError!Result(Types.InteractionCallbackResponse) {
-    std.debug.print("interactResponse Prior to bufprint\n", .{});
     var buf: [512]u8 = undefined;
-    const path = try std.fmt.bufPrint(&buf, "interactions/{s}/{s}/callback", .{ interaction_id, interaction_token });
+    const path = try std.fmt.bufPrint(&buf, "/interactions/{s}/{s}/callback", .{ interaction_id, interaction_token });
 
     std.debug.print("interactResponse URL: {s}\n", .{path});
 
