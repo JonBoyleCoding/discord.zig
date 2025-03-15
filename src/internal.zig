@@ -318,7 +318,7 @@ pub fn GatewayDispatchEvent(comptime T: type) type {
         integration_create: ?*const fn (save: T, guild_id: Types.IntegrationCreateUpdate) anyerror!void = undefined,
         integration_update: ?*const fn (save: T, guild_id: Types.IntegrationCreateUpdate) anyerror!void = undefined,
         integration_delete: ?*const fn (save: T, guild_id: Types.IntegrationDelete) anyerror!void = undefined,
-        interaction_create: ?*const fn (save: T, interaction: Types.MessageInteraction) anyerror!void = undefined,
+        interaction_create: ?*const fn (save: T, interaction: Types.Interaction) anyerror!void = undefined,
         invite_create: ?*const fn (save: T, data: Types.InviteCreate) anyerror!void = undefined,
         invite_delete: ?*const fn (save: T, data: Types.InviteDelete) anyerror!void = undefined,
         message_create: ?*const fn (save: T, message: Types.Message) anyerror!void = undefined,
