@@ -472,6 +472,7 @@ pub fn handleEvent(self: *Self, name: []const u8, payload: []const u8) !void {
     };
 
     if (mem.eql(u8, name, "INTERACTION_CREATE")) if (self.handler.interaction_create) |event| {
+        std.debug.print("INTERACTION: {s}", .{payload});
         const interaction = try zjson.parse(GatewayPayload(Types.MessageInteraction), self.allocator, payload);
 
         try event(self, interaction.value.d.?);
