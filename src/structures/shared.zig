@@ -868,7 +868,7 @@ pub const TargetTypes = enum(u4) {
     EmbeddedApplication,
 };
 
-pub const ApplicationCommandTypes = enum(i32) {
+pub const ApplicationCommandTypes = enum(u4) {
     /// A text-based command that shows up when a user types `/`
     ChatInput = 1,
     /// A UI-based command that shows up when you right click or tap on a user
@@ -877,6 +877,10 @@ pub const ApplicationCommandTypes = enum(i32) {
     Message,
     /// A UI-based command that represents the primary way to invoke an app's Activity
     PrimaryEntryPoint,
+
+    pub fn jsonStringify(self: @This(), jw: anytype) !void {
+        try jw.write(@intFromEnum(self));
+    }
 };
 
 pub const ApplicationCommandPermissionTypes = enum(u4) {
