@@ -2856,6 +2856,8 @@ pub fn interactResponse(self: *Self, interaction_id: Snowflake, interaction_toke
     var buf: [256]u8 = undefined;
     const path = try std.fmt.bufPrint(&buf, "https://discord.com/api/v10/interactions/{s}/{s}/callback", .{ interaction_id, interaction_token });
 
+    std.debug.print("interactResponse URL: {s}\n", .{path});
+
     var req = FetchReq.init(self.allocator, self.details.token);
     defer req.deinit();
 
