@@ -245,9 +245,9 @@ pub const InteractionResponseData = struct {
     /// Details about the poll
     poll: ?Poll = null,
     /// autocomplete choices (max of 25 choices)
-    choices: []ApplicationCommandOptionChoice,
+    choices: ?[]ApplicationCommandOptionChoice = null,
     /// Developer-defined identifier for the modal, max 100 characters
-    custom_id: []const u8,
+    custom_id: ?[]const u8 = null,
     /// Title of the popup modal, max 45 characters
-    title: []const u8,
+    title: ?[]const u8 = null,
 };
