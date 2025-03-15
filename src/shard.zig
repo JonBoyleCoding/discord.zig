@@ -2830,3 +2830,15 @@ pub fn deleteSticker(self: *Self, guild_id: Snowflake, sticker_id: Snowflake) Re
 
     return req.delete(path);
 }
+
+/// Create a global command
+/// When someone runs the command the following Gateway Event is made: INTERACTION_CREATE
+pub fn createGlobalCommand(self: *Self, application_id: Snowflake, command: Types.CreateApplicationCommand) RequestFailedError!Result(Types.CreateApplicationCommand) {
+    var buf: [256]u8 = undefined;
+    const path = try std.fmt.bufPrint(&buf, "/applications/{d}/commands", .{application_id.into()});
+
+    var req = FetchReq.init(self.allocator, self.details.token);
+    defer req.deinit();
+
+    return req.post(Types.CreateApplicationCommand, path, command);
+}
