@@ -208,7 +208,7 @@ pub const FetchReq = struct {
     }
 
     pub fn post(self: *FetchReq, comptime T: type, path: []const u8, object: anytype) !Result(T) {
-        var buf: [4096]u8 = undefined;
+        var buf: [8192]u8 = undefined;
         var fba = std.heap.FixedBufferAllocator.init(&buf);
         var string = std.ArrayList(u8).init(fba.allocator());
         errdefer string.deinit();
