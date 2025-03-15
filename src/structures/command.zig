@@ -97,11 +97,11 @@ pub const CreateApplicationCommand = struct {
     ///
     name: []const u8,
     /// Localization object for `name` field. Values follow the same restrictions as `name`
-    name_localizations: []const u8, //?Localization,
+    name_localizations: ?[]const u8 = null, //?Localization,
     /// Description for `ApplicationCommandTypes.ChatInput` commands, 1-100 characters.
     description: ?[]const u8 = null,
     /// Localization object for `description` field. Values follow the same restrictions as `description`
-    description_localizations: []const u8, //?Localization,
+    description_localizations: ?[]const u8 = null, //?Localization,
     /// Parameters for the command, max of 25
     options: ?[]ApplicationCommandOption = null,
     /// Set of permissions represented as a bit set
