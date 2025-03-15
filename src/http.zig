@@ -245,9 +245,12 @@ pub const FetchReq = struct {
             return err;
         };
 
-        std.debug.print("POST String Length: {s}", .{string.items});
+        const slice = try string.toOwnedSlice();
 
-        const result = try self.makeRequest(.POST, path, try string.toOwnedSlice());
+        std.debug.print("POST String Length: {s}", .{slice.len});
+        std.debug.print("POST String: {s}", .{slice});
+
+        const result = try self.makeRequest(.POST, path, slice);
 
         if (result.status != .ok) {
             const body = try self.body.toOwnedSlice();
@@ -320,8 +323,7 @@ pub const FetchReq = struct {
         path: []const u8,
         to_post: ?[]const u8,
     ) MakeRequestError!http.Client.FetchResult {
-        var buf: [256]u8 = undefined;
-        const constructed = try std.fmt.bufPrint(&buf, "{s}{s}{s}", .{ BASE_URL, path, try self.formatQueryParams() });
+        const constructed = try std.fmt.allocPrint(self.allocator, "{s}{s}{s}", .{ BASE_URL, path, try self.formatQueryParams() });
 
         std.debug.print("Request URL: {s}\n", .{constructed});
 
