@@ -245,6 +245,11 @@ fn readMessage(self: *Self, _: anytype) !void {
 
         const payload = raw.value;
 
+        const op = @as(Opcode, @enumFromInt(payload.op));
+        const op_name = @tagName(op);
+
+        std.debug.print("WS: Received Op: {s}\n", .{op_name});
+
         switch (@as(Opcode, @enumFromInt(payload.op))) {
             .Dispatch => {
                 // maybe use threads and call it instead from there
