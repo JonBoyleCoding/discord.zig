@@ -166,18 +166,18 @@ pub const ApplicationCommandOption = struct {
     ///
     name: []const u8,
     /// Localization object for the `name` field. Values follow the same restrictions as `name`
-    name_localizations: []const u4, //?Localization,
+    name_localizations: ?[]const u4 = null, //?Localization,
     /// 1-100 character description
     description: []const u8,
     /// Localization object for the `description` field. Values follow the same restrictions as `description`
-    description_localizations: ?[]const u8, //?Localization,
+    description_localizations: ?[]const u8 = null, //?Localization,
     ///
     /// If the parameter is required or optional. default `false`
     ///
     /// @remarks
     /// Valid in all option types except {@link ApplicationCommandOptionTypes.SubCommand | SubCommand}; and {@link ApplicationCommandOptionTypes.SubCommandGroup | SubCommandGroup};
     ///
-    required: ?bool,
+    required: ?bool = null,
     ///
     /// Choices for the option from which the user can choose, max 25
     ///
@@ -186,14 +186,14 @@ pub const ApplicationCommandOption = struct {
     ///
     /// If you provide an array of choices, they will be the ONLY accepted values for this option
     ///
-    choices: ?[]ApplicationCommandOptionChoice,
+    choices: ?[]ApplicationCommandOptionChoice = null,
     ///
     /// If the option is a subcommand or subcommand group type, these nested options will be the parameters
     ///
     /// @remarks
     /// Only valid in option of type {@link ApplicationCommandOptionTypes.SubCommand | SubCommand}; or {@link ApplicationCommandOptionTypes.SubCommandGroup | SubCommandGroup};
     ///
-    options: ?[]ApplicationCommandOption,
+    options: ?[]ApplicationCommandOption = null,
     ///
     /// If autocomplete interactions are enabled for this option.
     ///
@@ -202,42 +202,42 @@ pub const ApplicationCommandOption = struct {
     ///
     ///When {@link ApplicationCommandOption.choices | choices}; are provided, this may not be set to true
     ///
-    autocomplete: ?bool,
+    autocomplete: ?bool = null,
     ///
     /// The channels shown will be restricted to these types
     ///
     /// @remarks
     /// Only valid in option of type {@link ApplicationCommandOptionTypes.Channel | Channel};
     ///
-    channel_types: ?[]ChannelTypes,
+    channel_types: ?[]ChannelTypes = null,
     ///
     /// The minimum permitted value
     ///
     /// @remarks
     /// Only valid in options of type {@link ApplicationCommandOptionTypes.Integer | Integer}; or {@link ApplicationCommandOptionTypes.isize | isize};
     ///
-    min_value: ?isize,
+    min_value: ?isize = null,
     ///
     /// The maximum permitted value
     ///
     /// @remarks
     /// Only valid in options of type {@link ApplicationCommandOptionTypes.Integer | Integer}; or {@link ApplicationCommandOptionTypes.isize | isize};
     ///
-    max_value: ?isize,
+    max_value: ?isize = null,
     ///
     /// The minimum permitted length, should be in the range of from 0 to 600
     ///
     /// @remarks
     /// Only valid in options of type {@link ApplicationCommandOptionTypes.[]const u8 | []const u8};
     ///
-    min_length: ?isize,
+    min_length: ?isize = null,
     ///
     /// The maximum permitted length, should be in the range of from 0 to 600
     ///
     /// @remarks
     /// Only valid in options of type {@link ApplicationCommandOptionTypes.[]const u8 | []const u8};
     ///
-    max_length: ?isize,
+    max_length: ?isize = null,
 };
 
 /// https://discord.com/developers/docs/interactions/application-commands#application-command-permissions-object
