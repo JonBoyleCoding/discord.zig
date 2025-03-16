@@ -248,7 +248,9 @@ fn readMessage(self: *Self, _: anytype) !void {
         const op = @as(Opcode, @enumFromInt(payload.op));
         const op_name = @tagName(op);
 
-        std.debug.print("WS: Received Op: {s}\n", .{op_name});
+        if (self.log == .yes) {
+            std.debug.print("WS: Received Op: {s}\n", .{op_name});
+        }
 
         switch (@as(Opcode, @enumFromInt(payload.op))) {
             .Dispatch => {
