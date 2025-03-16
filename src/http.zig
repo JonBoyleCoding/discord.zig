@@ -208,7 +208,7 @@ pub const FetchReq = struct {
     }
 
     pub fn post(self: *FetchReq, comptime T: type, path: []const u8, object: anytype) !Result(T) {
-        var buf: [4096]u8 = undefined;
+        var buf: [1024]u8 = undefined;
         var fba = std.heap.FixedBufferAllocator.init(&buf);
         var string = std.ArrayList(u8).init(fba.allocator());
         errdefer string.deinit();
@@ -282,7 +282,7 @@ pub const FetchReq = struct {
         path: []const u8,
         to_post: ?[]const u8,
     ) MakeRequestError!http.Client.FetchResult {
-        var buf: [256]u8 = undefined;
+        var buf: [1024]u8 = undefined;
         const constructed = try std.fmt.bufPrint(&buf, "{s}{s}{s}", .{ BASE_URL, path, try self.formatQueryParams() });
 
         try self.extra_headers.append(http.Header{ .name = "Accept", .value = "application/json" });
